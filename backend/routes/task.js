@@ -1,4 +1,5 @@
 const {
+  listTask,
   getTask,
   createTask,
   updateTask,
@@ -7,7 +8,7 @@ const {
 const express = require("express");
 const router = express.Router();
 
-router.route("/").post(createTask);
+router.route("/").get(listTask).post(createTask);
 router.route("/:id").get(getTask).patch(updateTask).delete(deleteTask);
 
 module.exports = router;

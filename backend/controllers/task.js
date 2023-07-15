@@ -1,5 +1,14 @@
 const Task = require("../models/Task");
 
+exports.listTask = async (req, res) => {
+  const task = await Task.find();
+
+  res.status(200).json({
+    success: true,
+    data: task,
+  });
+};
+
 exports.getTask = async (req, res) => {
   const task = await Task.findById(req.params.id);
 
