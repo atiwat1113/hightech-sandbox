@@ -24,7 +24,16 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.get("/task/:id", async (req, res) => {
+app.get("/tasks", async (req, res) => {
+  const tasks = await Task.find();
+
+  res.status(200).json({
+    success: true,
+    data: tasks,
+  });
+});
+
+app.get("/tasks/:id", async (req, res) => {
   const task = await Task.findById(req.params.id);
 
   if (!task) {
@@ -40,7 +49,7 @@ app.get("/task/:id", async (req, res) => {
   });
 });
 
-app.post("/task", async (req, res) => {
+app.post("/tasks", async (req, res) => {
   const newTask = await Task.create(req.body);
   res.status(201).json({
     success: true,
@@ -48,7 +57,7 @@ app.post("/task", async (req, res) => {
   });
 });
 
-app.patch("/task/:id", async (req, res) => {
+app.patch("/tasks/:id", async (req, res) => {
   try {
     const task = await Task.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -70,7 +79,7 @@ app.patch("/task/:id", async (req, res) => {
   }
 });
 
-app.delete("/task/:id", async (req, res) => {
+app.delete("/tasks/:id", async (req, res) => {
   try {
     await Task.findByIdAndDelete(req.params.id);
     res.status(200).json({
