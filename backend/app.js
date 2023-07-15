@@ -1,5 +1,6 @@
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
+const cors = require("cors");
 const Task = require("./models/Task");
 const express = require("express");
 const app = express();
@@ -15,6 +16,9 @@ connectDB();
 
 // Body Parser
 app.use(express.json());
+
+// Enable CORS
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
