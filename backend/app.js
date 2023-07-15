@@ -11,9 +11,6 @@ dotenv.config({
   path: "./config/.env",
 });
 
-//Connect to database
-connectDB();
-
 // Body Parser
 app.use(express.json());
 
@@ -91,6 +88,7 @@ app.delete("/tasks/:id", async (req, res) => {
   }
 });
 
-app.listen(port, () => {
+app.listen(port, async () => {
+  await connectDB();
   console.log(`Example app listening on port ${port}`);
 });
